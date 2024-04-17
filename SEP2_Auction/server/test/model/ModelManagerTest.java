@@ -115,7 +115,10 @@ class ModelManagerTest {
     void start_Auction_with_empty_imagePath(){
         assertThrows(Exception.class,() -> model.startAuction("title","description", 69,420,2,12,""));
     }
-
+    @Test
+    void start_Auction_with_null_imagePath(){
+        assertThrows(Exception.class,() -> model.startAuction("title","description", 69,420,2,12,null));
+    }
     @Test
     void start_Auction_toString(){
         Auction auction = model.startAuction("title","description", 69,420,2,12,"/path/to/image");
