@@ -70,6 +70,10 @@ public class Auction
 
   public void setTitle(String title) {
     int maxTitleLength = 100;
+    //  Added after tests
+    if(title.isEmpty()){
+      throw new IllegalArgumentException("No Title specified!");
+    }
     if (title.length() > maxTitleLength){
       throw new IllegalArgumentException("Title is too long!");
     }
@@ -82,6 +86,11 @@ public class Auction
 
   public void setDescription(String description) {
     int maxDescriptionLength = 1000;
+    //  Added after tests
+    if(description.isEmpty()){
+      throw new IllegalArgumentException("No Description Specified!");
+    }
+
     if (description.length() > maxDescriptionLength){
       throw new IllegalArgumentException("Description is too long!");
     }
@@ -134,6 +143,9 @@ public class Auction
   }
 
   public void setImagePath(String imagePath) {
+    if(imagePath.isEmpty()){
+      throw new IllegalArgumentException("No image path specified!");
+    }
     this.imagePath = imagePath;
   }
 
