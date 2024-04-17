@@ -82,7 +82,7 @@ public class Auction
 
   public void setDescription(String description) {
     int maxDescriptionLength = 1000;
-    if (title.length() > maxDescriptionLength){
+    if (description.length() > maxDescriptionLength){
       throw new IllegalArgumentException("Description is too long!");
     }
     this.description = description;
