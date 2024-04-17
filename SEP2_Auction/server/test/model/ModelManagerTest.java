@@ -36,7 +36,10 @@ class ModelManagerTest {
     void start_Auction_with_empty_title(){
         assertThrows(Exception.class,() -> model.startAuction("","description", 69,420,2,12,"/path/to/image"));
     }
-
+    @Test
+    void start_Auction_with_null_title(){
+        assertThrows(Exception.class,() -> model.startAuction(null,"description", 69,420,2,12,"/path/to/image"));
+    }
     @Test
     void start_Auction_with_long_title(){
         final String title = "TITLETILEISADDSASDASDSADSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -47,6 +50,10 @@ class ModelManagerTest {
     @Test
     void start_Auction_with_empty_description(){
         assertThrows(Exception.class,() -> model.startAuction("title","", 69,420,2,12,"/path/to/image"));
+    }
+    @Test
+    void start_Auction_with_null_description(){
+        assertThrows(Exception.class,() -> model.startAuction("title",null, 69,420,2,12,"/path/to/image"));
     }
     @Test
     void start_Auction_with_long_description(){
