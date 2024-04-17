@@ -90,19 +90,46 @@ class ModelManagerTest {
         assertThrows(Exception.class,() -> model.startAuction("title","description", 0,420,2,12,"/path/to/image"));
     }
     @Test
+    void start_Auction_with_negative_reservedPrice(){
+        assertThrows(Exception.class,() -> model.startAuction("title","description", -20,420,2,12,"/path/to/image"));
+    }
+
+    @Test
+    void start_Auction_with_boundary_reservedPrice(){
+        assertDoesNotThrow(() -> model.startAuction("title","description", 99999999,420,2,12,"/path/to/image") );
+    }
+    @Test
     void start_Auction_with_zero_buyoutPrice(){
         assertThrows(Exception.class,() -> model.startAuction("title","description", 69,0,2,12,"/path/to/image"));
     }
-
+    @Test
+    void start_Auction_with_negative_buyoutPrice(){
+        assertThrows(Exception.class,() -> model.startAuction("title","description", 69,-420,2,12,"/path/to/image"));
+    }
+    @Test
+    void start_Auction_with_boundary_buyoutPrice(){
+        assertDoesNotThrow(() -> model.startAuction("title","description", 69,999999999,2,12,"/path/to/image") );
+    }
     @Test
     void start_Auction_with_zero_minimumIncrement(){
         assertThrows(Exception.class,() -> model.startAuction("title","description", 69,420,0,12,"/path/to/image"));
     }
+    @Test
+    void start_Auction_with_negative_minimumIncrement(){
+        assertThrows(Exception.class,() -> model.startAuction("title","description", 69,420,-2,12,"/path/to/image"));
+    }
+    @Test
+    void start_Auction_with_boundary_minimumIncrement(){
+        assertThrows(Exception.class,() -> model.startAuction("title","description", 69,420,999999999,12,"/path/to/image"));
+    }
 
-    //  Add boundary !!!!
     @Test
     void start_Auction_with_zero_auctionTime(){
         assertThrows(Exception.class,() -> model.startAuction("title","description", 0,420,2,0,"/path/to/image"));
+    }
+    @Test
+    void start_Auction_with_negative_auctionTime(){
+        assertThrows(Exception.class,() -> model.startAuction("title","description", 0,420,2,-12,"/path/to/image"));
     }
 
     @Test
