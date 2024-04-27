@@ -64,14 +64,19 @@ public class AuctionDatabase implements AuctionPersistence {
 
       if (key.next()) {
         int id = key.getInt("id");
-
-        sql = "UPDATE auction1 SET image_data = ? WHERE id = ?;";
-
-        statement.setString(1, saveImageToRepository(imageData, id + ""));
-        statement.setInt(2, id);
-
         key.close();
         statement.close();
+
+        sql = "UPDATE auction1 SET image_data = ? WHERE id = ?;";
+        PreparedStatement updateStatement = connection.prepareStatement(sql);
+
+        updateStatement.setString(1, saveImageToRepository(imageData, id + ""));
+        updateStatement.setInt(2, id);
+
+        updateStatement.executeUpdate();
+        updateStatement.close();
+
+
 
         return new Auction(id, title, description, reservePrice, buyoutPrice,
             minimumIncrement, auctionTime, 0, null, imageData, "ON SALE");
@@ -145,7 +150,7 @@ public class AuctionDatabase implements AuctionPersistence {
       ByteArrayInputStream inStreamObj = new ByteArrayInputStream(imageBytes);
       BufferedImage newImage = ImageIO.read(inStreamObj);
 
-      pathToImage = "server/images/" + imageTitle + ".jpg";
+      pathToImage = "server\\images\\" + imageTitle + ".jpg";
       ImageIO.write(newImage, "jpg", new File(pathToImage));
     }
     catch (IOException e) {
