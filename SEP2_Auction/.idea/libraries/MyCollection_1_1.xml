@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="MyCollection-1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/School/PROGRAMING/SEP2_LIBRARIES/MyCollection-1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/School/PROGRAMING/SEP2_LIBRARIES/MyObserver-1.4 18.26.56.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/School/PROGRAMING/SEP2_LIBRARIES/MyDatabase.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Desktop/School/PROGRAMING/SEP2_LIBRARIES/MyDatabase.jar!/doc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Desktop/School/PROGRAMING/SEP2_LIBRARIES/MyCollection-1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/School/PROGRAMING/SEP2_LIBRARIES/MyObserver-1.4 18.26.56.jar!/" />
+    </SOURCES>
+  </library>
+</component>
