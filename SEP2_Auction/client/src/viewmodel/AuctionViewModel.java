@@ -27,7 +27,7 @@ import java.util.Arrays;
 public class AuctionViewModel implements PropertyChangeListener
 {
   private StringProperty descriptionProperty, errorProperty, headerProperty, reasonProperty, titleProperty, timerProperty;
-  private IntegerProperty idProperty, bidProperty, buyoutPriceProperty, incrementProperty, ratingProperty, reservePriceProperty, timeProperty;
+  private IntegerProperty idProperty, bidProperty, buyoutPriceProperty, incrementProperty, ratingProperty, reservePriceProperty, timeProperty, incomingBidProperty, currentBidProperty;
   private ObjectProperty<Image> imageProperty;
   private AuctionModel model;
   private ViewModelState state;
@@ -50,7 +50,10 @@ public class AuctionViewModel implements PropertyChangeListener
     timerProperty = new SimpleStringProperty();
     titleProperty = new SimpleStringProperty();
     imageProperty = new SimpleObjectProperty<>();
+    incomingBidProperty = new SimpleIntegerProperty();
 
+    currentBidProperty = new SimpleIntegerProperty();
+    currentBidProperty.set(0);
 
     //model.addListener("Time", this);
     //model.addListener("End", this);
@@ -82,6 +85,40 @@ public class AuctionViewModel implements PropertyChangeListener
       //e.printStackTrace();
     }
   }
+  public void placeBid() {
+          errorProperty.set("");
+          isValidBid();
+
+          if(errorProperty.get().equals("")){
+            if (currentBidProperty.get() < incomingBidProperty.get()) {
+              System.out.println("passed if statement");
+              currentBidProperty.set(incomingBidProperty.get());
+              System.out.printf("new current bid: " + currentBidProperty.get());
+            }
+          }
+  }
+
+  public void isValidBid() {
+    if (incomingBidProperty.get() <= 0) {
+      errorProperty.set("Bid amount must be greater than zero.");
+     /* throw new IllegalArgumentException(
+          "Bid amount must be greater than zero.");*/
+    }
+
+    if (incomingBidProperty.get() < reservePriceProperty.get()) {
+      errorProperty.set("Bid amount must be at least the reserve price.");
+      /* throw new IllegalArgumentException(
+          "Bid amount must be at least the reserve price."); */
+    }
+
+    if (incomingBidProperty.get() <= currentBidProperty.get()) {
+      errorProperty.set("Bid amount must be higher than the highest bid.");
+      /* throw new IllegalArgumentException(
+          "Bid amount must be higher than the highest bid."); */
+    }
+  }
+
+
 
   private byte[] imageToByteArray(Image image) throws IOException
   {
@@ -217,6 +254,9 @@ public class AuctionViewModel implements PropertyChangeListener
   {
     return incrementProperty;
   }
+
+  public IntegerProperty getCurrentBidProperty() { return currentBidProperty; }
+  public IntegerProperty getIncomingBidProperty() { return incomingBidProperty; }
 
   @Override public void propertyChange(PropertyChangeEvent event)
   {

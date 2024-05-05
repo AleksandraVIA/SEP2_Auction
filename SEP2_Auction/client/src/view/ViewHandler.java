@@ -5,18 +5,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import viewmodel.ViewModelFactory;
-import viewmodel.BidViewModel;
 
 public class ViewHandler {
   private Stage primaryStage;
   private Scene currentScene;
   private ViewModelFactory viewModelFactory;
   private FixedPaneViewHandler fixedPaneViewController;
-  private BidViewModel bidViewModel;
 
-  public ViewHandler(ViewModelFactory viewModelFactory, BidViewModel bidViewModel) {
+
+  public ViewHandler(ViewModelFactory viewModelFactory ) {
     this.viewModelFactory = viewModelFactory;
-    this.bidViewModel = bidViewModel;
     currentScene = new Scene(new Region());
   }
 
@@ -66,7 +64,7 @@ public class ViewHandler {
 
         fixedPaneViewController.init(this,
             viewModelFactory.getFixedPaneViewModel(), viewModelFactory, root,
-            windowType, bidViewModel);
+            windowType);
       }
       catch (Exception e) {
         e.printStackTrace();

@@ -11,22 +11,21 @@ import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import utility.IntStringConverter;
 import viewmodel.AuctionViewModel;
-import viewmodel.BidViewModel;
-
 
 import java.io.File;
 import java.util.Optional;
 
 public class AuctionViewController
 {
+  @FXML private Label currentBidLabel;
+  @FXML private TextField incomingBidTextField;
+
   @FXML private ScrollPane auctionScrollPane;
   @FXML private Button backButton;
   @FXML private Label bidLabel;
-  @FXML private TextField bidTextField;
   @FXML private Button buyNowButton;
   @FXML private TextField buyoutPriceTextField;
   @FXML private Button cancelButton;
-  @FXML private Label currentBidLabel;
   @FXML private Label currentBidTextLabel;
   @FXML private Label currentBidderLabel;
   @FXML private Label currentBidderTextLabel;
@@ -59,7 +58,7 @@ public class AuctionViewController
   private AuctionViewModel auctionViewModel;
   private ViewHandler viewHandler;
   private FileChooser fileChooser;
-  private BidViewModel bidViewModel;
+
 
   //initializations and bindings
   public void init(ViewHandler viewHandler, AuctionViewModel auctionViewModel,
@@ -70,6 +69,7 @@ public class AuctionViewController
 
     Bindings.bindBidirectional(idLabel.textProperty(),
         this.auctionViewModel.getIdProperty(), new IntStringConverter());
+
     headerLabel.textProperty()
         .bindBidirectional(this.auctionViewModel.getHeaderProperty());
     titleTextArea.textProperty()
@@ -78,24 +78,33 @@ public class AuctionViewController
         .bindBidirectional(this.auctionViewModel.getDescriptionProperty());
     errorLabel.textProperty()
         .bindBidirectional(this.auctionViewModel.getErrorProperty());
+
     Bindings.bindBidirectional(incrementTextField.textProperty(),
         this.auctionViewModel.getIncrementProperty(), new IntStringConverter());
     reasonTextArea.textProperty()
         .bindBidirectional(this.auctionViewModel.getReasonProperty());
+
     Bindings.bindBidirectional(reservePriceTextField.textProperty(),
         this.auctionViewModel.getReservePriceProperty(),
         new IntStringConverter());
     errorLabel.textProperty()
         .bindBidirectional(this.auctionViewModel.getErrorProperty());
+
     Bindings.bindBidirectional(timeTextField.textProperty(),
         this.auctionViewModel.getTimeProperty(), new IntStringConverter());
+
     timerCountdownLabel.textProperty()
         .bindBidirectional(this.auctionViewModel.getTimerProperty());
+
     Bindings.bindBidirectional(buyoutPriceTextField.textProperty(),
         this.auctionViewModel.getBuyoutPriceProperty(),
         new IntStringConverter());
+
     Bindings.bindBidirectional(imageImageView.imageProperty(),
         auctionViewModel.getImageProperty());
+
+    Bindings.bindBidirectional(currentBidLabel.textProperty(), this.auctionViewModel.getCurrentBidProperty(), new IntStringConverter());
+    Bindings.bindBidirectional(incomingBidTextField.textProperty(), this.auctionViewModel.getIncomingBidProperty(), new IntStringConverter());
     //other bindings to be inserted
 
     errorLabel.setText("");
@@ -148,7 +157,7 @@ public class AuctionViewController
     currentBidderTextLabel.setVisible(false);
     currentBidTextLabel.setVisible(false);
     bidLabel.setVisible(false);
-    bidTextField.setVisible(false);
+    incomingBidTextField.setVisible(false);
     placeBidButton.setVisible(false);
     buyNowButton.setVisible(false);
     somethingWrongLabel.setVisible(false);
@@ -181,8 +190,8 @@ public class AuctionViewController
     currentBidderTextLabel.setVisible(true);
     currentBidTextLabel.setVisible(true);
     bidLabel.setVisible(true);
-    bidTextField.setVisible(true);
-    bidTextField.requestFocus();
+    incomingBidTextField.setVisible(true);
+    incomingBidTextField.requestFocus();
     placeBidButton.setVisible(true);
     buyNowButton.setVisible(true);
     sellerRateLabel.setVisible(true);
@@ -201,9 +210,6 @@ public class AuctionViewController
     startAuctionButton.setVisible(false);
     cancelButton.setVisible(false);
 
-  }
-  public void setBidViewModel(BidViewModel bidViewModel) {
-    this.bidViewModel = bidViewModel;
   }
 
   public void leaveAuctionView()
@@ -275,22 +281,8 @@ public class AuctionViewController
 
   @FXML
   void placeBidButtonPressed(ActionEvent event) {
-    try {
-      if (bidViewModel == null) {
-        throw new IllegalStateException("BidViewModel is not initialized.");
-      }
-      double bidAmount = Double.parseDouble(bidTextField.getText());
-      bidViewModel.placeBid(bidAmount);
-      errorLabel.setText("");
-    } catch (NumberFormatException e) {
-      errorLabel.setText("Invalid bid amount format.");
-    } catch (IllegalStateException e) {
-      errorLabel.setText("BidViewModel is not initialized.");
-      e.printStackTrace();
-    } catch (Exception e) {
-      errorLabel.setText("Error occurred while placing bid.");
-      e.printStackTrace();
-    }
+
+    auctionViewModel.placeBid();
   }
 
   public void deleteButtonPressed(ActionEvent actionEvent)
