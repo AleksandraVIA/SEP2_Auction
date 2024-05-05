@@ -5,15 +5,18 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import viewmodel.ViewModelFactory;
+import viewmodel.BidViewModel;
 
 public class ViewHandler {
   private Stage primaryStage;
   private Scene currentScene;
   private ViewModelFactory viewModelFactory;
   private FixedPaneViewHandler fixedPaneViewController;
+  private BidViewModel bidViewModel;
 
-  public ViewHandler(ViewModelFactory viewModelFactory) {
+  public ViewHandler(ViewModelFactory viewModelFactory, BidViewModel bidViewModel) {
     this.viewModelFactory = viewModelFactory;
+    this.bidViewModel = bidViewModel;
     currentScene = new Scene(new Region());
   }
 
@@ -27,8 +30,8 @@ public class ViewHandler {
   public void openView(WindowType type) {
     Region root = null;
     switch (type) {
-      case START_AUCTION, DISPLAY_AUCTION, ALL_AUCTIONS ->{
-          root = loadFixedPaneView("FixedPaneView.fxml", type);
+      case START_AUCTION, DISPLAY_AUCTION, ALL_AUCTIONS -> {
+        root = loadFixedPaneView("FixedPaneView.fxml", type);
       }
       case SING_UP, LOG_IN -> {
         //for future
@@ -49,11 +52,9 @@ public class ViewHandler {
     primaryStage.show();
   }
 
-
   public void closeView() {
     primaryStage.close();
   }
-
 
   private Region loadFixedPaneView(String fxmlFile, WindowType windowType) {
     if (fixedPaneViewController == null) {
@@ -65,7 +66,7 @@ public class ViewHandler {
 
         fixedPaneViewController.init(this,
             viewModelFactory.getFixedPaneViewModel(), viewModelFactory, root,
-            windowType);
+            windowType, bidViewModel);
       }
       catch (Exception e) {
         e.printStackTrace();

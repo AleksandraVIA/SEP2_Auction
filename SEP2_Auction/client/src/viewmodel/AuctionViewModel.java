@@ -274,6 +274,7 @@ public class AuctionViewModel implements PropertyChangeListener
         });
         break;*/
     }
+
   }
 
 }

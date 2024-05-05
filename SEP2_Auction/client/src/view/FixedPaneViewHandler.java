@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import viewmodel.BidViewModel;
 import viewmodel.FixedPaneViewModel;
 import viewmodel.ViewModelFactory;
 
@@ -37,7 +38,7 @@ public class FixedPaneViewHandler
 
   public void init(ViewHandler viewHandler,
       FixedPaneViewModel fixedPaneViewModel, ViewModelFactory viewModelFactory,
-      Region root, WindowType windowType)
+      Region root, WindowType windowType, BidViewModel bidViewModel)
   {
     this.root = root;
     this.viewModelFactory = viewModelFactory;

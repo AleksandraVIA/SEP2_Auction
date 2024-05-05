@@ -14,4 +14,5 @@ public interface AuctionPersistence
   Auction getAuctionById(int id) throws SQLException;
   void markAsClosed(int id) throws SQLException;
   AuctionList getOngoingAuctions() throws SQLException;
+
 }

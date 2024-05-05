@@ -11,6 +11,8 @@ import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import utility.IntStringConverter;
 import viewmodel.AuctionViewModel;
+import viewmodel.BidViewModel;
+
 
 import java.io.File;
 import java.util.Optional;
@@ -57,11 +59,11 @@ public class AuctionViewController
   private AuctionViewModel auctionViewModel;
   private ViewHandler viewHandler;
   private FileChooser fileChooser;
+  private BidViewModel bidViewModel;
 
   //initializations and bindings
   public void init(ViewHandler viewHandler, AuctionViewModel auctionViewModel,
-      Region root, WindowType windowType)
-  {
+      Region root, WindowType windowType) {
     this.root = root;
     this.viewHandler = viewHandler;
     this.auctionViewModel = auctionViewModel;
@@ -200,6 +202,9 @@ public class AuctionViewController
     cancelButton.setVisible(false);
 
   }
+  public void setBidViewModel(BidViewModel bidViewModel) {
+    this.bidViewModel = bidViewModel;
+  }
 
   public void leaveAuctionView()
   {
@@ -267,13 +272,32 @@ public class AuctionViewController
 
   }
 
-  @FXML void placeBidButtonPressed(ActionEvent event)
-  {
 
+  @FXML
+  void placeBidButtonPressed(ActionEvent event) {
+    try {
+      if (bidViewModel == null) {
+        throw new IllegalStateException("BidViewModel is not initialized.");
+      }
+      double bidAmount = Double.parseDouble(bidTextField.getText());
+      bidViewModel.placeBid(bidAmount);
+      errorLabel.setText("");
+    } catch (NumberFormatException e) {
+      errorLabel.setText("Invalid bid amount format.");
+    } catch (IllegalStateException e) {
+      errorLabel.setText("BidViewModel is not initialized.");
+      e.printStackTrace();
+    } catch (Exception e) {
+      errorLabel.setText("Error occurred while placing bid.");
+      e.printStackTrace();
+    }
   }
 
   public void deleteButtonPressed(ActionEvent actionEvent)
   {
   }
+
+
+
 
 }

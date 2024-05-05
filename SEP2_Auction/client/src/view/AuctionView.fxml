@@ -268,8 +268,8 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button id="resetPassword_loginButton" fx:id="placeBidButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#placeBidButtonPressed" prefHeight="40.0" prefWidth="157.0" text="Place bid" textAlignment="CENTER">
-                           <font>
+                        <Button id="resetPassword_loginButton" fx:id="placeBidButton" alignment="CENTER" contentDisplay="CENTER" layoutX="287.0" layoutY="654.0" mnemonicParsing="false" onAction="#placeBidButtonPressed" prefHeight="50.0" prefWidth="157.0" text="Place bid" textAlignment="CENTER">
+                        <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
